@@ -5,4 +5,4 @@ snake game in java
 mvn package
 
 ## Run
-java -cp target/snake-game-1.0-SNAPSHOT.jar com.yonglinzhong.app.App
+java -cp target/snake-game-1.0-SNAPSHOT.jar com.yonglinzhong.game.MainWindow

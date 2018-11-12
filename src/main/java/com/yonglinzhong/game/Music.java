@@ -11,10 +11,8 @@ import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /*
- * 负责播放音频
- * 调用方法
+ * play audio
  * new Music(filepath).start();
- * filepath为音频文件的路径，如果直接使用文件名，文件得放在项目文件夹的最外层目录
  */
 public class Music extends Thread{ 	 
     private String filepath;

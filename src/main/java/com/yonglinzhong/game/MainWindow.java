@@ -45,8 +45,8 @@ public class MainWindow extends JFrame{
 	private Timer timer;
 	private boolean pause = false;
 	private boolean isrun = true;
-	private boolean IfSpeedUp = false;//标记是否加速,true表示当前在加速
-	private boolean IfRemove = false;//标记是否移除界面上的网格线，true表示移除，false表示不移除，默认不移除
+	private boolean IfSpeedUp = false;
+	private boolean IfRemove = false;// varialbe for removing grid
 	
 	private PlayerSnake snake;
 	private Foodset food;
@@ -239,14 +239,14 @@ public class MainWindow extends JFrame{
 		
 		Image img = Toolkit.getDefaultToolkit().getImage("image//title.png");
 		setIconImage(img);
-	    setTitle("Snake_5th_version_beta");
+	    setTitle("Snake Game");
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    setSize(1000,540);
 	    setResizable(false);
 	    setLayout(null);
 	    setLocationRelativeTo(null);
 	    
-	    //添加背景图片
+	    // add background picture
 	    backgroundImage = new ImageIcon("background//sky2.jpg");
 	    backgroundImage.setImage(backgroundImage.getImage().getScaledInstance(1000,540,Image.SCALE_SMOOTH));
 	    background_label = new JLabel(backgroundImage);  
@@ -257,26 +257,25 @@ public class MainWindow extends JFrame{
         imagePanel.setOpaque(false);
         
         paintPanel = new JPanel(){
-        	//绘制界面的函数
         	public void paint(Graphics g1){
         		super.paint(g1);
         		Graphics2D g = (Graphics2D) g1;
         		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
         		g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,RenderingHints.VALUE_STROKE_NORMALIZE);
         		
-        		//墙
+        		// wall
         		g.setPaint(new GradientPaint(115,135,Color.CYAN,230,135,Color.MAGENTA,true));
         		g.setStroke( new BasicStroke(4,BasicStroke.CAP_BUTT,BasicStroke.JOIN_BEVEL));
         		g.drawRect(3, 6, 887, 468);//+400
         		
         		if(!IfRemove)
         		{
-        			//网格线
+        			// grid
         			for(int i = 1;i < 40;i++)
         			{
         				g.setStroke( new BasicStroke(1f, BasicStroke.CAP_BUTT,
                                 BasicStroke.JOIN_ROUND, 3.5f, new float[] { 15, 10, },
-                                0f));//虚线
+                                0f)); // dash line
         				g.setColor(Color.black);
         				g.drawLine(5+i*22,9,5+i*22,472);
         				if(i <= 20)
@@ -349,7 +348,7 @@ public class MainWindow extends JFrame{
 	    NextStepCoor.setBounds(900, 440, 80, 20);
 	    NextStepCoor.setFont(f);
 	    
-	    //字体颜色，为了便于分辨，设为白色
+	    // font color
 	    label.setForeground(Color.white);
 	    label2.setForeground(Color.white);
 	    label3.setForeground(Color.white);
@@ -367,7 +366,7 @@ public class MainWindow extends JFrame{
 		Amount.setForeground(Color.white);    
 		Weapon.setForeground(Color.white);
 		
-		//菜单栏
+		// menu
         JMenuBar bar = new JMenuBar();
         bar.setBackground(Color.white);
   		setJMenuBar(bar);
@@ -404,8 +403,7 @@ public class MainWindow extends JFrame{
        
 		//---------------------------------------------------------------------
 		
-		//添加监听器
-		//监听键盘事件
+		// keyboard event listener
 		this.addKeyListener(new MyKeyListener());
 		
 		remove_net.addActionListener(new ActionListener(){
@@ -477,10 +475,10 @@ public class MainWindow extends JFrame{
 		headIcon[1] = new ImageIcon("head//head1.png");
 		headIcon[2] = new ImageIcon("head//head2.png");
 		headIcon[3] = new ImageIcon("head//head3.png");
-		headIcon[0].setImage(headIcon[0].getImage().getScaledInstance(16,16,Image.SCALE_SMOOTH));//保持图片的清晰
-		headIcon[1].setImage(headIcon[1].getImage().getScaledInstance(16,16,Image.SCALE_SMOOTH));//保持图片的清晰
-		headIcon[2].setImage(headIcon[2].getImage().getScaledInstance(16,16,Image.SCALE_SMOOTH));//保持图片的清晰
-		headIcon[3].setImage(headIcon[3].getImage().getScaledInstance(16,16,Image.SCALE_SMOOTH));//保持图片的清晰
+		headIcon[0].setImage(headIcon[0].getImage().getScaledInstance(16,16,Image.SCALE_SMOOTH));
+		headIcon[1].setImage(headIcon[1].getImage().getScaledInstance(16,16,Image.SCALE_SMOOTH));
+		headIcon[2].setImage(headIcon[2].getImage().getScaledInstance(16,16,Image.SCALE_SMOOTH));
+		headIcon[3].setImage(headIcon[3].getImage().getScaledInstance(16,16,Image.SCALE_SMOOTH));
 		for(int i = 0;i < head.length;i++)
 		{
 			headItems[i] = new JRadioButtonMenuItem(head[i]);
@@ -512,10 +510,10 @@ public class MainWindow extends JFrame{
 		bodyIcon[1] = new ImageIcon("body//body1.png");
 		bodyIcon[2] = new ImageIcon("body//body2.png");
 		bodyIcon[3] = new ImageIcon("body//body3.png");
-		bodyIcon[0].setImage(bodyIcon[0].getImage().getScaledInstance(16,16,Image.SCALE_SMOOTH));//保持图片的清晰
-		bodyIcon[1].setImage(bodyIcon[1].getImage().getScaledInstance(16,16,Image.SCALE_SMOOTH));//保持图片的清晰
-		bodyIcon[2].setImage(bodyIcon[2].getImage().getScaledInstance(16,16,Image.SCALE_SMOOTH));//保持图片的清晰
-		bodyIcon[3].setImage(bodyIcon[3].getImage().getScaledInstance(16,16,Image.SCALE_SMOOTH));//保持图片的清晰
+		bodyIcon[0].setImage(bodyIcon[0].getImage().getScaledInstance(16,16,Image.SCALE_SMOOTH));
+		bodyIcon[1].setImage(bodyIcon[1].getImage().getScaledInstance(16,16,Image.SCALE_SMOOTH));
+		bodyIcon[2].setImage(bodyIcon[2].getImage().getScaledInstance(16,16,Image.SCALE_SMOOTH));
+		bodyIcon[3].setImage(bodyIcon[3].getImage().getScaledInstance(16,16,Image.SCALE_SMOOTH));
 		for(int i = 0;i < body.length;i++)
 		{
 			bodyItems[i] = new JRadioButtonMenuItem(body[i]);
@@ -552,18 +550,16 @@ public class MainWindow extends JFrame{
         });
 	}
 	
-	//主函数入口
+
 	public static void main(String[] args) {
 		MainWindow game = new MainWindow();
-		game.InitialUI();//初始化界面
+		game.InitialUI();
 		game.run();
 	}
-	
-	
+
+
 	/*
-	 * 计时器类,负责计时
-	 * 调用方法，直接new一个此类，然后主界面就开始显示计时
-	 * new Timer();
+	 * Timer class for count down
 	 */
 	private class Timer extends Thread{
 		
@@ -623,8 +619,7 @@ public class MainWindow extends JFrame{
 	            strTime = strTime+"0"+sec;
 	        else
 	            strTime = strTime+""+sec;
-	         
-	        //在窗体上设置显示时间
+
 	        Time.setText(strTime);
 	    }
 	}
@@ -638,47 +633,47 @@ public class MainWindow extends JFrame{
 		public void keyPressed(KeyEvent e) {
 			int key = e.getKeyCode();
 			Direction direction = snake.getDirection();
-    		if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D)//向右
+    		if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D)// right
     		{
     			if(isrun && direction != Direction.LEFT)
     			{
     				snake.setDirection(Direction.RIGHT);
     			}
     		}
-    		else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A)//向左
+    		else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A)// left
     		{
     			if(isrun && direction != Direction.RIGHT)
     			{
     				snake.setDirection(Direction.LEFT);
     			}
     		}
-    		else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W)//向上
+    		else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W)// up
     		{
     			if(isrun && direction != Direction.DOWN)
     			{
     				snake.setDirection(Direction.UP);
     			}
     		}
-    		else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S)//向下
+    		else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S)// down
     		{
     			if(isrun && direction != Direction.UP)
     			{
     				snake.setDirection(Direction.DOWN);
     			}
     		}
-    		else if(key == KeyEvent.VK_ESCAPE)//重新开始
+    		else if(key == KeyEvent.VK_ESCAPE)// restart
     		{
     			restart();
     		}
     		else if(key == KeyEvent.VK_SPACE)
     		{
-    			if(!pause)//暂停
+    			if(!pause)
     			{
     				pause = true;
     				isrun = false;
     				System.out.println("Pause...");
     			}
-    			else//开始
+    			else
     			{
     				pause = false;
     				isrun = true;
@@ -686,7 +681,7 @@ public class MainWindow extends JFrame{
     			}
     		}
     		
-//    		//发射子弹
+//    		// fire bullet
     		if(e.isShiftDown())
     		{
     			if(snake.getBulletNum() > 0)
@@ -694,7 +689,7 @@ public class MainWindow extends JFrame{
     				System.out.println("Fire a bullet");
     				Direction d = snake.getDirection();
     				Coordinate coor = snake.getHeadCoor();
-    				Coordinate target = obstacle.searchTarget(coor, d);//找到火焰的目标
+    				Coordinate target = obstacle.searchTarget(coor, d);
     				
     				System.out.println("Target is:" + target.x + "," +target.y);
     				
@@ -712,10 +707,9 @@ public class MainWindow extends JFrame{
     			SS3 = Cld.get(Calendar.SECOND);
     	        MI3 = Cld.get(Calendar.MILLISECOND); 
     	        int x = SS3 * 1000 + MI3 - ( SS * 1000 + MI);
-    	        if(x > 500)//按一个按钮的时长大于500毫秒识别为长按
+    	        if(x > 500)// it'll be considered as a long press when it holds more than 500ms
     	        {
-    	        	snake.setSpeed(100);//加速时每隔100毫秒刷新一次
-    	        	//System.out.println("Long Pressed");
+    	        	snake.setSpeed(100);// when it's speeding up, it'll refresh every other 100ms
     	        }
     		}
 		}
@@ -743,20 +737,19 @@ public class MainWindow extends JFrame{
 		 */
 		private static final long serialVersionUID = -990903376750998765L;
 		private final int back_kind = 6;
-		private Font f = new Font("微软雅黑",Font.PLAIN,15);
+		private Font f = new Font("Arial",Font.PLAIN,15);
 		private JPanel p = new JPanel();
 		
 		public AlterBacground(){
-			 setTitle("更换游戏背景");//设置窗体标题
-			 Image img=Toolkit.getDefaultToolkit().getImage("title.png");//窗口图标
+			 setTitle("Change Background");
+			 Image img=Toolkit.getDefaultToolkit().getImage("title.png");
 			 setIconImage(img);
 		     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		     setModal(true);//设置为模态窗口
+		     setModal(true);
 		     setSize(650,390);
 		     setResizable(false);
 		     setLocationRelativeTo(null);
-		     
-		     //添加背景图片
+
 		     final ImageIcon background[] = new ImageIcon[back_kind];
 		     background[0] = new ImageIcon("background//desert.jpg");
 		     background[1] = new ImageIcon("background//grass.jpg");

@@ -5,9 +5,9 @@ import javax.swing.JLabel;
 
 import com.yonglinzhong.game.*;
 
-//身体节点的数据结构
+// snake body data structure
 public class Body {
-	Coordinate coor;//坐标
+	Coordinate coor;// coordination
 	JLabel label;
 	public Body(int x,int y,ImageIcon icon)
 	{

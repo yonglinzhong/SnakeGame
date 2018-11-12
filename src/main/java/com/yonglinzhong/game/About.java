@@ -40,9 +40,8 @@ class ShadePanel extends JPanel {
         int height = getHeight();
 
         GradientPaint paint = new GradientPaint(0, 0, Color.CYAN, 0, height,Color.MAGENTA);// color gradient
-        //GradientPaint paint = new GradientPaint(0, 0, Color.red, 0, height,Color.blue);
-        g.setPaint(paint);// 设置绘图对象的填充模式
-        g.fillRect(0, 0, width, height);// 绘制矩形填充控件界面
+        g.setPaint(paint);
+        g.fillRect(0, 0, width, height);
     }
 }
  
@@ -94,16 +93,16 @@ public class About extends JDialog {
 	    
     	JLabel MyGithub_Label = new JLabel("");
     	MyGithub_Label.setFont(f2);
-    	final JLabel MyGithub = new JLabel("https://github.com/JiaxinTse");
+    	final JLabel MyGithub = new JLabel("");
     	MyGithub.setFont(f2);
     	MyGithub.setBackground(Color.white);
     	MyGithub.addMouseListener(new InternetMonitor());
-    	JLabel MyCnBlog_Label = new JLabel("博客园:");
+    	JLabel MyCnBlog_Label = new JLabel("");
     	MyCnBlog_Label.setFont(f2);
-    	final JLabel MyCnBlog = new JLabel("http://www.cnblogs.com/journal-of-xjx");
+    	final JLabel MyCnBlog = new JLabel("");
     	MyCnBlog.setFont(f2);
     	MyCnBlog.addMouseListener(new InternetMonitor());
-    	JTextArea Copyright = new JTextArea("     	Copyright @XJX2018.\n   	  All rights reserved.");
+    	JTextArea Copyright = new JTextArea("");
     	Copyright.setFocusable(false);
     	Copyright.setOpaque(false);
     	Copyright.setFont(f1);

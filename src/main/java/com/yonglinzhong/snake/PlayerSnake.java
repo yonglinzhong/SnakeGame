@@ -11,7 +11,7 @@ import java.util.Iterator;
 import com.yonglinzhong.game.*;
 
 public class PlayerSnake {
-	private MainWindow GameUI;//母窗体,即游戏主界面
+	private MainWindow GameUI;// main winodw
 	private Foodset food;
 	private Obstacle obstacle;
 	/*
@@ -19,12 +19,12 @@ public class PlayerSnake {
 	 * 故需要把MainWindow类作为PlayerSnake构造函数的参数以达到能访问其中变量和函数的目的
 	 */
 	private Thread run;
-	private Direction direction = Direction.RIGHT;//蛇当前前进的方向,初始化默认向右移动
-	private int speed = 300;//用于描述蛇移动速度的变量，其实是作为蛇刷新线程的时间用的
-	private int defaultSpeed = 300;//默认速度
-	private Deque<Body> body = new LinkedList<Body>();//用于描述蛇身体节点的数组，保存蛇身体各个节点的坐标
-	private int point = 0;//当前蛇得了多少分
-	private int bulletNumber = 20;//蛇的子弹数目
+	private Direction direction = Direction.RIGHT;// snake current direction, default as right
+	private int speed = 300;
+	private int defaultSpeed = 300;
+	private Deque<Body> body = new LinkedList<Body>();// store the body of snake's coordination
+	private int point = 0;// current point
+	private int bulletNumber = 20;// snake's bullet
 	
 	private ImageIcon[] headIcon = new ImageIcon[4];//表示蛇头的四张图片
 	private int headIconTag = 0;//头部默认加载第0张图片
@@ -36,17 +36,17 @@ public class PlayerSnake {
 		this.GameUI = GameUI;
 		this.food = food;
 		this.obstacle = obstacle;
-		//加载4张蛇头和4张蛇身体图片
+		// load 4 snake head and 4 snake body pictures
 		for(int i = 0;i < 4;i++)
 		{
 			headIcon[i] = new ImageIcon("head//head" + i + ".png");
-			headIcon[i].setImage(headIcon[i].getImage().getScaledInstance(20,20,Image.SCALE_SMOOTH));//保持图片的清晰
+			headIcon[i].setImage(headIcon[i].getImage().getScaledInstance(20,20,Image.SCALE_SMOOTH));// keep picture quality
 			
 			bodyIcon[i] = new ImageIcon("body//body" + i + ".png");
-			bodyIcon[i].setImage(bodyIcon[i].getImage().getScaledInstance(20,20,Image.SCALE_SMOOTH));//保持图片的清晰
+			bodyIcon[i].setImage(bodyIcon[i].getImage().getScaledInstance(20,20,Image.SCALE_SMOOTH));// keep picuture quality
 		}
 		
-		Body head = new Body(0,0,headIcon[headIconTag]);//初始化头部在(0,0)位置
+		Body head = new Body(0,0,headIcon[headIconTag]);// initiate the snake at the point (0,0)
 		body.addFirst(head);
 		GameUI.add(head.label);
 		head.label.setBounds(IndexToPixel.getXPixel(head.coor.x), IndexToPixel.getYPixel(head.coor.y), 20, 20);
@@ -55,7 +55,7 @@ public class PlayerSnake {
 		MoveThread();
 	}
 	
-	//蛇身体移动
+	// move the snake body
 	public void move(){
 		Coordinate head,next_coor = new Coordinate(0,0);
 		if(direction == Direction.UP){
@@ -296,8 +296,8 @@ public class PlayerSnake {
 		public void show(){
 			if(fireCoor.x == target.x && fireCoor.y == target.y)
 			{
-				if(target.x < 0 || target.x > GameUI.getAreaWidth() || target.y < 0 || target.y > GameUI.getAreaHeight()){}//运动到屏幕外不播放音效
-				else new Music("music//explode.wav").start();//击中障碍物播放音效
+				if(target.x < 0 || target.x > GameUI.getAreaWidth() || target.y < 0 || target.y > GameUI.getAreaHeight()){}
+				else new Music("music//explode.wav").start();// play the audio when hit the obstacle
 				
 				fireLabel.setVisible(false);
 				obstacle.removeOne(target);
@@ -334,7 +334,7 @@ public class PlayerSnake {
 			while(!quit)
 			{
 				try {
-					Thread.sleep(50);//每隔50毫秒刷新一次
+					Thread.sleep(50);// refresh every 50ms
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

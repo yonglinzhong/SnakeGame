@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Write2file {
-	//字符串写出到文本
     public static void  Write2Txt(String str,String filepath) throws Exception{
         FileWriter fw = null;
         String path = filepath;
@@ -21,7 +20,6 @@ public class Write2file {
             // OutputStreamWriter out = new OutputStreamWriter(fos, "UTF-8"); 
             out.write(str.toString());
             out.close();
-            //System.out.println("===========写入文本成功========");
         } catch (IOException e) {
             e.printStackTrace();
         } 

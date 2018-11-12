@@ -1,15 +1,16 @@
 package com.yonglinzhong.game;
 
 public class IndexToPixel {
-	//注意，序号从0开始
-	//横坐标：i -> 7+i*22
-	//纵坐标：i -> 12+i*22
-	public static int getXPixel(int i)//通过方格序号返回其横坐标
+	//x axis：i -> 7+i*22
+	//y axis：i -> 12+i*22
+	// the index starts from 0
+	//
+	public static int getXPixel(int i)
 	{
 		return 7+i*22;
 	}
 		
-	public static int getYPixel(int i)//通过方格序号返回其纵坐标
+	public static int getYPixel(int i)
 	{
 		return 12+i*22;
 	}

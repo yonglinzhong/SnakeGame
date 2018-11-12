@@ -25,7 +25,7 @@ public class Help extends JDialog {
         contentPane.add(shadePanel, BorderLayout.CENTER);
         shadePanel.setLayout(null);
         
-        JTextArea J1 = new JTextArea("注意，此份游戏说明是针对第5版本的。\n游戏说明如下：\n通过键盘上的方向键或者WASD键来控制蛇"
+        JTextArea J1 = new JTextArea("游戏说明如下：\n通过键盘上的方向键或者WASD键来控制蛇"
         		+ "前进的方向，长按可以加速。在游戏界面按ESC键可以直接重新开始游戏，按空格键可以实现暂停和开始。菜单栏"
         		+ "的设置菜单可以更改蛇头，蛇身，选择速度，更换背景，以及设置网格是否可见。游戏界面右边会显示你的当前长度，"
         		+ "得分，当前所含有的子弹数。游戏中有多种食物，它们对应的"
@@ -34,8 +34,7 @@ public class Help extends JDialog {
         		+ "同时，为了配合障碍物的出现，游戏加入了蛇射出子弹击毁前进道路上的障碍物的技能，子弹数目初始化为20。"
         		+ "注意，待击毁的目标障碍物是你发射子弹时，你前进方向前距离你最近的砖块。如果没有，子弹会沿着发射方向"
         		+ "一直移动到屏幕外。子弹通过吃特定的食物获得，食物样子为一把枪。吃得枪每次增加一颗子弹，"
-        		+ "不增加得分，增加长度。子弹产生的概率在所有食物中最低，所以请节约使用。另外，按Shift键发射子弹。\n                   "
-        		+ "       Copyright @XJX2018.\n   	  All rights reserved.");
+        		+ "不增加得分，增加长度。子弹产生的概率在所有食物中最低，所以请节约使用。另外，按Shift键发射子弹。");
         J1.setFocusable(false);
     	J1.setFont(f);
     	J1.setEditable(false);
@@ -45,7 +44,7 @@ public class Help extends JDialog {
     	scroll = new JScrollPane(J1,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     	scroll.setBorder(BorderFactory.createTitledBorder("How to play"));
     	scroll.setOpaque(false);
-    	scroll.getViewport().setOpaque(false);//JScrollPane设置成透明需加上这一行
+    	scroll.getViewport().setOpaque(false);
     	shadePanel.add(scroll);
     	scroll.setBounds(10, 10, 385, 330);
     	

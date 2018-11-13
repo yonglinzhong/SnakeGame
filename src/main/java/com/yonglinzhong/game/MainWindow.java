@@ -27,9 +27,9 @@ public class MainWindow extends JFrame{
 	private JPanel paintPanel;
 	private JLabel label  = new JLabel("Length：");
 	private JLabel label2 = new JLabel("Time：");
-	private JLabel label3 = new JLabel("Score：");
+	private JLabel label3 = new JLabel("Points：");
 	private JLabel label4 = new JLabel("Food：");
-	private JLabel label5 = new JLabel("Bullet：");
+	private JLabel label5 = new JLabel("Bullets：");
 	private JLabel label6 = new JLabel("AI长度：");
 	private JLabel label7 = new JLabel("Food Coordination：");
 	private JLabel label8 = new JLabel("Next：");
@@ -52,13 +52,13 @@ public class MainWindow extends JFrame{
 	private Foodset food;
 	private Obstacle obstacle;
 	
-	private static final int HEIGHT = 21;			//游戏区域高，高21代表纵向有21行
-	private static final int WIDTH = 40;			//游戏区域宽，宽40代表横向有40列
-	private int[][] map = new int[HEIGHT][WIDTH];	//map数组标记当前地图的使用情况
-													/*0表示空闲
-													 *1表示蛇身体节点
-													 *2表示食物
-													 *3表示障碍物 
+	private static final int HEIGHT = 21;			// 21 rows
+	private static final int WIDTH = 40;			// 40 columns
+	private int[][] map = new int[HEIGHT][WIDTH];
+													/*0 means empty
+													 *1 means snake body
+													 *2 means food
+													 *3 means obstacle
 													 */
 
 	public synchronized int[][] getMap(){
@@ -467,7 +467,7 @@ public class MainWindow extends JFrame{
 		}
 		speedItems[2].setSelected(true);
 		
-		String head[] = {"doge","二哈","经典","憧憬"};
+		String head[] = {"head 1","head 2","head 3","head 4"};
 		headItems = new JRadioButtonMenuItem[head.length];
 		headGroup = new ButtonGroup();
 		ImageIcon headIcon[] = new ImageIcon[head.length];
@@ -502,7 +502,7 @@ public class MainWindow extends JFrame{
 		}
 		headItems[0].setSelected(true);
 		
-		String body[] = {"乖巧","笑眼","滑稽","阴险"};
+		String body[] = {"body 1","body 2","body 3","body 4"};
 		bodyItems = new JRadioButtonMenuItem[body.length];
 		bodyGroup = new ButtonGroup();
 		ImageIcon bodyIcon[] = new ImageIcon[body.length];

@@ -10,23 +10,23 @@ import javax.swing.JLabel;
 
 public class Foodset {
 	
-	private MainWindow GameUI;//母窗体,即游戏主界面
-	private List<Food> food = new LinkedList<Food>();//用于描述食物的数组
+	private MainWindow GameUI;
+	private List<Food> food = new LinkedList<Food>();// food array
 	private static final int MAXSIZE = 8;
 	private static final int MINSIZE = 3;
 	
 	private static final int FOODKIND = 6;
-	private int[] point = new int[FOODKIND];//6中食物各自对应的得分
-	private ImageIcon[] foodIcon = new ImageIcon[FOODKIND];//6种食物各自对应的图标
+	private int[] point = new int[FOODKIND];// points for each food
+	private ImageIcon[] foodIcon = new ImageIcon[FOODKIND];// icons for each food
 	
 	private Thread run;
-	private int time = 10000;//10秒移动刷新一次
+	private int time = 10000;// fresh every 10s
 	private boolean quit = false;
 	
 	public Foodset(MainWindow GameUI){
 		this.GameUI = GameUI;
 		
-		//初始化各食物对应的得分
+		// initialize food point
 	    point[0] = 50;
 	    point[1] = 40;
 	    point[2] = 30;
@@ -34,11 +34,11 @@ public class Foodset {
 	    point[4] = 10;
 	    point[5] = 0;
 	    
-	    //加载6张食物的图片
+	    // load food picture
 	    for(int i = 0;i < FOODKIND;i++)
 	    {
 	    	foodIcon[i] = new ImageIcon("food//food" + i + ".png");
-			foodIcon[i].setImage(foodIcon[i].getImage().getScaledInstance(20,20,Image.SCALE_SMOOTH));//保持图片的清晰
+			foodIcon[i].setImage(foodIcon[i].getImage().getScaledInstance(20,20,Image.SCALE_SMOOTH));
 	    }
 	    
 	    produceFood();
@@ -51,22 +51,18 @@ public class Foodset {
 	}
 	
 	public synchronized int getFoodPoint(Coordinate coor){
-		/*给定界面上的一个点，判断该点是否有食物存在，若有，则返回对应食物的得分，否则返回-1
-		 * 注意coor.x代表横向的序号，从左到右依次为[0,WIDTH-1]
-		 * coor.y代表纵向的序号，从上到下依次为[0,HEIGHT-1]
-		 */
 		for (Iterator<Food> iter = food.iterator(); iter.hasNext();) {
 			Food node = iter.next();
 			if(node.coor.x == coor.x && node.coor.y == coor.y)
 			{
-				node.label.setVisible(false);//从界面上移除食物
+				node.label.setVisible(false);// remove food from UI
 				GameUI.remove(node.label);
-				iter.remove();//从food数组中移除被吃掉的食物
+				iter.remove();// remove the food from the linklist if it's eated
 				
-				produceFood();//注意每次吃完食物后增加随机数量的食物，保证界面上食物的数量维持在[0,MINSIZE-1]之间
+				produceFood();
 				
 				GameUI.getAmountLabel().setText("" + food.size());
-				return point[node.kind];//返回该食物对应的分数
+				return point[node.kind];// return food point
 			}
 		}
 		return -1;
@@ -95,8 +91,8 @@ public class Foodset {
 		
 		for(int i = 0;i < amount;i++)
 		{
-			Coordinate coor = GameUI.produceRandomCoordinate();//注意，coor.x是数组的行，coor.y是数组的列，和界面上的行序号和列序号正好相反
-			Coordinate _coor = new Coordinate(coor.y,coor.x);//置换行和列
+			Coordinate coor = GameUI.produceRandomCoordinate();
+			Coordinate _coor = new Coordinate(coor.y,coor.x);
 			prob = rand.nextDouble();
 			if(prob >= 0 && prob <0.1) 		    foodtag = 0;//10%
 			else if(prob >= 0.1  && prob <0.25) foodtag = 4;//15%
@@ -104,23 +100,17 @@ public class Foodset {
 			else if(prob >= 0.5  && prob <0.8)  foodtag = 2;//30%
 			else if(prob >= 0.8 && prob <0.95)  foodtag = 1;//15%
 			else if(prob >= 0.95 && prob <1) 	foodtag = 5;//5%
-			
-			//GameUI.P();
-			//GameUI.map[coor.x][coor.y] = 2;//x行，y列
+
 			GameUI.setMap(coor.x, coor.y, 2);
-			//GameUI.V();
-			
+
 			newfood = new Food(foodtag,_coor,foodIcon[foodtag]);
 			food.add(newfood);
 			GameUI.add(newfood.label);
-//			newfood.label.setBounds(IndexToPixel.getXPixel(newfood.coor.y), 
-//					IndexToPixel.getYPixel(newfood.coor.x), 20, 20);//注意，x指的是是第几行，对应的是纵坐标
-//																	//同理，y指的是是第几列，对应的是横坐标
 		}
 		
-		GameUI.getAmountLabel().setText("" + food.size());//刷新GameUI界面上显示食物数量的Label
+		GameUI.getAmountLabel().setText("" + food.size());// refresh the label to show food count
 		show();
-		System.out.print("产生" + amount + "个食物\t");
+		System.out.print("Generate food:" + amount + "\t");
 		String Time = SysTime.getSysTime();
 		System.out.println(Time);
 	}
@@ -134,11 +124,11 @@ public class Foodset {
 		}
 	}
 	
-	public synchronized void removeAll(){//移除界面上的所有食物图片
+	public synchronized void removeAll(){// remove all food picture
 		for (Iterator<Food> iter = food.iterator(); iter.hasNext();) {
 			Food node = iter.next();
 			
-			GameUI.setMap(node.coor.y, node.coor.x, 0);//地图上的该点重新标记为0
+			GameUI.setMap(node.coor.y, node.coor.x, 0);
 			
 			node.label.setVisible(false);
 			GameUI.remove(node.label);
@@ -174,11 +164,11 @@ public class Foodset {
 		run.start();
 	}
 
-	//食物的数据结构
+	// food data structure
 	public class Food {
-		int kind;//食物种类，0-5对应5种不同的食物，见文档说明
+		int kind;
 		JLabel label; 
-		Coordinate coor;//坐标
+		Coordinate coor;
 		public Food(int kind,int x,int y,ImageIcon icon){
 			this.kind = kind;
 			label = new JLabel(icon);

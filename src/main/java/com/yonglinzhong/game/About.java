@@ -72,11 +72,11 @@ public class About extends JDialog {
         J1.setFocusable(false);
     	J1.setFont(f2);
     	J1.setEditable(false);
-    	J1.setOpaque(false);//背景透明
+    	J1.setOpaque(false);// transparent background
     	shadePanel.add(J1);
     	J1.setBounds(10, 10, 400, 180);
     	icon = new ImageIcon("title.png");
-    	icon.setImage(icon.getImage().getScaledInstance(120,120,Image.SCALE_SMOOTH));//保持图片的清晰
+    	icon.setImage(icon.getImage().getScaledInstance(120,120,Image.SCALE_SMOOTH));// keep picture quality
     	label = new JLabel(icon);
     	shadePanel.add(label);
     	label.setBounds(270, 0, 130, 130);

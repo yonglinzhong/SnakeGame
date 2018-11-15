@@ -14,10 +14,6 @@ public class PlayerSnake {
 	private MainWindow GameUI;// main winodw
 	private Foodset food;
 	private Obstacle obstacle;
-	/*
-	 * 这里说明一下，由于游戏的主界面类时MainWindow，而PlayerSnake类需要和MainWindow交换一些信息，即两个类有通信需求，
-	 * 故需要把MainWindow类作为PlayerSnake构造函数的参数以达到能访问其中变量和函数的目的
-	 */
 	private Thread run;
 	private Direction direction = Direction.RIGHT;// snake current direction, default as right
 	private int speed = 300;
@@ -26,10 +22,10 @@ public class PlayerSnake {
 	private int point = 0;// current point
 	private int bulletNumber = 20;// snake's bullet
 	
-	private ImageIcon[] headIcon = new ImageIcon[4];//表示蛇头的四张图片
-	private int headIconTag = 0;//头部默认加载第0张图片
-	private ImageIcon[] bodyIcon = new ImageIcon[4];//表示蛇头的四张图片
-	private int bodyIconTag = 0;//身体默认加载第0张图片
+	private ImageIcon[] headIcon = new ImageIcon[4];// snake head pictures
+	private int headIconTag = 0;// default the first picture as head
+	private ImageIcon[] bodyIcon = new ImageIcon[4];// snake body picture
+	private int bodyIconTag = 0;// default the first picture as body
 	private boolean quit = false;
 	
 	public PlayerSnake(MainWindow GameUI,Foodset food,Obstacle obstacle){
@@ -59,23 +55,23 @@ public class PlayerSnake {
 	public void move(){
 		Coordinate head,next_coor = new Coordinate(0,0);
 		if(direction == Direction.UP){
-			head = body.getFirst().coor;//获取头部
-			next_coor = new Coordinate(head.x,head.y - 1);//头部向上移动一个单位后的坐标
+			head = body.getFirst().coor;
+			next_coor = new Coordinate(head.x,head.y - 1);// move snake head up
 		}
 		else if(direction == Direction.DOWN){
-			head = body.getFirst().coor;//获取头部
-			next_coor = new Coordinate(head.x,head.y + 1);//头部向下移动一个单位后的坐标
+			head = body.getFirst().coor;
+			next_coor = new Coordinate(head.x,head.y + 1);// move snake head down
 		}
 		else if(direction == Direction.LEFT){
-			head = body.getFirst().coor;//获取头部
-			next_coor = new Coordinate(head.x - 1,head.y);//头部向左移动一个单位后的坐标
+			head = body.getFirst().coor;
+			next_coor = new Coordinate(head.x - 1,head.y);// move snake head left
 		}
 		else if(direction == Direction.RIGHT){
-			head = body.getFirst().coor;//获取头部
-			next_coor = new Coordinate(head.x + 1,head.y);//头部向右移动一个单位后的坐标
+			head = body.getFirst().coor;
+			next_coor = new Coordinate(head.x + 1,head.y);// move snake head right
 		}
 		
-		if(checkDeath(next_coor))//判断下一步是否死亡
+		if(checkDeath(next_coor))// condiction to check if game end in the next step
 		{
 			new Music("music//over.wav").start();
 			GameUI.setIsrun(false);
@@ -96,30 +92,23 @@ public class PlayerSnake {
 		else
 		{
 			Body next_node = new Body(next_coor,headIcon[headIconTag]);
-			body.addFirst(next_node);//添头
-			//GameUI.map[next_node.coor.y][next_node.coor.x] = 1;//标记为蛇身体节点
+			body.addFirst(next_node);//add head
 			GameUI.setMap(next_node.coor.y, next_node.coor.x, 1);
 			next_node.label.setVisible(true);
 			GameUI.add(next_node.label);
 			
-			if(!checkEat(next_coor))//没吃到食物就去尾，否则不用去掉，因为添加的头刚好是吃到一个食物后增长的一节
+			if(!checkEat(next_coor))// if didn't eat food then remove the tail
 			{
-				Body tail = body.pollLast();//去尾
-				//GameUI.map[tail.coor.y][tail.coor.x] = 0;//标记为空闲
+				Body tail = body.pollLast();//remove tail
 				GameUI.setMap(tail.coor.y, tail.coor.x, 0);
 				tail.label.setVisible(false);
-				GameUI.remove(tail.label);
-				//添头去尾实现移动
+				GameUI.remove(tail.label); // add head and remove tail to achieve moving
 			}
 		}
 	}
 	
-	//判断一个坐标位置是否是蛇死亡的位置
+	// check if the snake is death for a given coordination
 	public boolean checkDeath(Coordinate coor){
-		/*注意，coor.x是map数组中的列号，从左到右依次为[0,WIDTH-1]
-		 *     coor.y是map数组中的行号，从上到下依次为[0,HEIGHT-1]
-		 */
-		
 		if( coor.x < 0 || coor.x >= GameUI.getAreaWidth()||
 			coor.y < 0 || coor.y >= GameUI.getAreaHeight()||
 			GameUI.getMap()[coor.y][coor.x] == 3)
@@ -131,20 +120,19 @@ public class PlayerSnake {
 	
 	public boolean checkEat(Coordinate coor){
 		int _point = food.getFoodPoint(coor);
-		if(_point == -1)//没吃到食物
+		if(_point == -1)// didn't eat food
 			return false;
-		else//吃到了食物
+		else// ate food
 		{
 			new Music("music//eat.wav").start();
 			point += _point;
-			if(_point == 0)//食物是子弹
+			if(_point == 0)
 			{
 				bulletNumber ++;
 				GameUI.getWeaponLabel().setText("" + bulletNumber);
 			}
-			GameUI.getScoreLabel().setText("" + point);//在界面上刷新得分
-			GameUI.getLengthLabel().setText("" + body.size());//刷新身体长度
-			//GameUI.map[coor.y][coor.x] = 1;//把地图上的该点标记为1，代表蛇身体
+			GameUI.getScoreLabel().setText("" + point);// refresh point
+			GameUI.getLengthLabel().setText("" + body.size());// refresh body size
 			GameUI.setMap(coor.y, coor.x, 1);
 			return true;
 		}
@@ -202,7 +190,7 @@ public class PlayerSnake {
 	public void fire(Coordinate snakehead,Coordinate target,Direction d){
 		new Fire(snakehead,target,d);
 		bulletNumber--;
-		GameUI.getWeaponLabel().setText("" + bulletNumber);//刷新界面上显示的子弹数目
+		GameUI.getWeaponLabel().setText("" + bulletNumber);// refresh bullet count
 	}
 	
 	public synchronized void show(){
@@ -253,25 +241,17 @@ public class PlayerSnake {
 		private Coordinate snakehead;
 		
 		public Fire(Coordinate snakehead,Coordinate target,Direction d){
-			fireIcon = new ImageIcon("image//fire.png");//射击子弹时产生的火焰图标
-		    fireIcon.setImage(fireIcon.getImage().getScaledInstance(20,20,Image.SCALE_SMOOTH));//保持图片的清晰
+			fireIcon = new ImageIcon("image//fire.png");
+		    fireIcon.setImage(fireIcon.getImage().getScaledInstance(20,20,Image.SCALE_SMOOTH));
 		    fireLabel = new JLabel(fireIcon);
 		    
 		    this.target = target;
 		    this.moveDirection = d;
 		    this.snakehead = snakehead;
-		    //初始化火焰起始坐标
+		    // initilize the fire position
 		    if(moveDirection == Direction.UP)
 			{
 				fireCoor = new Coordinate(snakehead.x,snakehead.y-1);
-				/* 这里插一句
-				 * 草他妈的Java，引用传递害死人，这里的snakehead从最开始传过来的都是引用，
-				 * 也就是说各个形参和实参都和最初的那个对象绑定在一起了，
-				 * 任何一处修改，都会直接影响到最原来那个对象的值，也就是body数组的值
-				 * 所以这里千万不能有任何修改原值的行为，比如此处只能用snakehead.y-1，不能用snakehead.y--!!!
-				 * 忘后人记住这一点，他娘的，浪费我这么久时间
-				 * 详情请参考：https://www.zhihu.com/question/20628016/answer/28970414
-				 */
 				
 			}
 			else if(moveDirection == Direction.DOWN)

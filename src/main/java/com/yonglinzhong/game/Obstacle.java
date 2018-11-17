@@ -68,59 +68,46 @@ public class Obstacle {
 			Wall wall;
 			Brick brick;
 			tag = rand.nextInt(2);
-			length = rand.nextInt(4) + 5;// random generate the wall length
-			coor = GameUI.produceRandomCoordinate();// 注意coor.x是数组的行号，对应界面上的列方向的坐标序号
+			length = rand.nextInt(4) + 5;
+			coor = GameUI.produceRandomCoordinate();
 			if(tag == 0)
 			{
 				while(coor.y + length >= GameUI.getAreaWidth() || !checkSafe(coor,tag,length))
-					/*横向排列时得保证最右边的那块砖不能跑到界面外边去
-					 * 而且该堵墙的每块砖都是处于空闲位置
-					 */
 				{
-					coor = GameUI.produceRandomCoordinate();//注意coor.x是数组的行号，对应界面上的列方向的坐标序号
+					coor = GameUI.produceRandomCoordinate();
 				}
 				wall = new Wall();
 				for(int j = 0;j < length;j++)
 				{
-					_coor = new Coordinate(coor.y + j,coor.x);//注意要交换x和y中的次序
-					
-					//GameUI.P();
-					//GameUI.map[coor.x][coor.y + j] = 3;//标记地图上的该点为障碍物
+					_coor = new Coordinate(coor.y + j,coor.x);
 					GameUI.setMap(coor.x, coor.y + j, 3);
-					//GameUI.V();
-					
+
 					brick = new Brick(_coor,brickIcon);
-					wall.wall.add(brick);//把该块砖添加到该堵墙中去
+					wall.wall.add(brick);
 				}
-				obstacle.add(wall);//把该堵墙添加到整个障碍物数组中去
+				obstacle.add(wall);
 			}
 			else if(tag == 1)
 			{
 				while(coor.x + length >= GameUI.getAreaHeight() || !checkSafe(coor,tag,length))
-					/*纵向排列时得保证最下边的那块砖不能跑到界面外边去
-					 * 而且该堵墙的每块砖都是处于空闲位置
-					 */
 				{
-					coor = GameUI.produceRandomCoordinate();//注意coor.x是数组的行号，对应界面上的列方向的坐标序号
+					coor = GameUI.produceRandomCoordinate();
 				}
 				wall = new Wall();
 				for(int j = 0;j < length;j++)
 				{
-					_coor = new Coordinate(coor.y,coor.x + j);//注意要交换x和y中的次序
+					_coor = new Coordinate(coor.y,coor.x + j);
 					
-					//GameUI.P();
-					//GameUI.map[coor.x + j][coor.y] = 3;//标记地图上的该点为障碍物
 					GameUI.setMap(coor.x + j, coor.y, 3);
-					//GameUI.V();
-					
+
 					brick = new Brick(_coor,brickIcon);
-					wall.wall.add(brick);//把该块砖添加到该堵墙中去
+					wall.wall.add(brick);
 				}
-				obstacle.add(wall);//把该堵墙添加到整个障碍物数组中去
+				obstacle.add(wall);
 			}
 		}
 		
-		System.out.print("产生" + wallAmount +"堵墙\t\t");
+		System.out.print("generate " + wallAmount +" walls\t\t");
 		String Time = SysTime.getSysTime();
 		System.out.println(Time);
 	}

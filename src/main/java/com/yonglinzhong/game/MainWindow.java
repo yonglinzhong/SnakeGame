@@ -30,7 +30,7 @@ public class MainWindow extends JFrame{
 	private JLabel label3 = new JLabel("Points：");
 	private JLabel label4 = new JLabel("Food：");
 	private JLabel label5 = new JLabel("Bullets：");
-	private JLabel label6 = new JLabel("AI长度：");
+	private JLabel label6 = new JLabel("AI Length：");
 	private JLabel label7 = new JLabel("Food Coordination：");
 	private JLabel label8 = new JLabel("Next：");
 	private JLabel FoodCoor = new JLabel("");
@@ -681,7 +681,7 @@ public class MainWindow extends JFrame{
     			}
     		}
     		
-//    		// fire bullet
+    		// fire bullet
     		if(e.isShiftDown())
     		{
     			if(snake.getBulletNum() > 0)

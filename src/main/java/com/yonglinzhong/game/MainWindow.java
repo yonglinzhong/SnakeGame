@@ -30,12 +30,6 @@ public class MainWindow extends JFrame{
 	private JLabel label3 = new JLabel("Points：");
 	private JLabel label4 = new JLabel("Food：");
 	private JLabel label5 = new JLabel("Bullets：");
-	private JLabel label6 = new JLabel("AI Length：");
-	private JLabel label7 = new JLabel("Food Coordination：");
-	private JLabel label8 = new JLabel("Next：");
-	private JLabel FoodCoor = new JLabel("");
-	private JLabel NextStepCoor = new JLabel("");
-	private JLabel AILength = new JLabel("1");
 	private JLabel Length = new JLabel("1");
 	private JLabel Score = new JLabel("0");
 	private JLabel Time = new JLabel("");
@@ -67,18 +61,6 @@ public class MainWindow extends JFrame{
 	
 	public synchronized void setMap(int i,int j,int e){
 		map[i][j] = e;
-	}
-	
-	public JLabel getFoodCoorLabel(){
-		return FoodCoor;
-	}
-	
-	public JLabel getNextStepCoorLabel(){
-		return NextStepCoor;
-	}
-	
-	public JLabel getAILengthLabel(){
-		return AILength;
 	}
 	
 	public JLabel getLengthLabel(){
@@ -130,9 +112,6 @@ public class MainWindow extends JFrame{
 	}
 
 	public void resetLabel(){
-		FoodCoor.setText("");
-		NextStepCoor.setText("");
-		AILength.setText("1");
 		Length.setText("1");
 		Score.setText("0");
 		Time.setText("");
@@ -327,39 +306,12 @@ public class MainWindow extends JFrame{
 	    p.setBounds(898, 300, 93, 1);
 	    p.setBorder(BorderFactory.createLineBorder(Color.white));
 	    
-	    add(label6);
-	    label6.setBounds(900, 315, 80, 20);
-	    label6.setFont(f);
-	    add(AILength);
-	    AILength.setBounds(900, 340, 80, 20);
-	    AILength.setFont(f);
-	    
-	    add(label7);
-	    label7.setBounds(900, 365, 80, 20);
-	    label7.setFont(f);
-	    add(FoodCoor);
-	    FoodCoor.setBounds(900, 390, 80, 20);
-	    FoodCoor.setFont(f);
-	    
-	    add(label8);
-	    label8.setBounds(900, 415, 80, 20);
-	    label8.setFont(f);
-	    add(NextStepCoor);
-	    NextStepCoor.setBounds(900, 440, 80, 20);
-	    NextStepCoor.setFont(f);
-	    
 	    // font color
 	    label.setForeground(Color.white);
 	    label2.setForeground(Color.white);
 	    label3.setForeground(Color.white);
 	    label4.setForeground(Color.white);
 	    label5.setForeground(Color.white);
-	    label6.setForeground(Color.white);
-	    label7.setForeground(Color.white);
-	    label8.setForeground(Color.white);
-	    FoodCoor.setForeground(Color.white);
-	    NextStepCoor.setForeground(Color.white);
-	    AILength.setForeground(Color.white);
 	    Length.setForeground(Color.white);
 		Score.setForeground(Color.white);
 		Time.setForeground(Color.white);

@@ -127,10 +127,8 @@ public class Foodset {
 	public synchronized void removeAll(){// remove all food picture
 		for (Iterator<Food> iter = food.iterator(); iter.hasNext();) {
 			Food node = iter.next();
-			
-			GameUI.setMap(node.coor.y, node.coor.x, 0);
-			
 			node.label.setVisible(false);
+			GameUI.setMap(node.coor.y, node.coor.x, 0);
 			GameUI.remove(node.label);
 		}
 		food.clear();

@@ -33,7 +33,7 @@ public class Help extends JDialog {
                 "- In the menu, you can set the head, body, speed, background, and grid visibility.\n" +
                 "- Different foods have different points.\n" +
                 "- Obstacles will be generated randomly.\n" +
-                "- The snake can destroy the obstacles by firing bullets which total amount is 20.");
+                "- The snake can destroy the obstacles by pressing the “SHIFT” key to fire bullets which total amount is 20.");
         J1.setFocusable(false);
     	J1.setFont(f);
     	J1.setEditable(false);
